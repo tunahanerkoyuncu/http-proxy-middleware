@@ -38,6 +38,7 @@ export interface Options extends httpProxy.ServerOptions {
   onProxyReqWs?: OnProxyReqWsCallback;
   onOpen?: OnOpenCallback;
   onClose?: OnCloseCallback;
+  onProxyReqWSInterceptor?: OnProxyReqWSInterceptor;
 }
 
 interface LogProvider {
@@ -85,5 +86,10 @@ export type OnCloseCallback = (
   proxySocket: net.Socket,
   proxyHead: any
 ) => void;
+export type OnProxyReqWSInterceptor = (
+  req: http.IncomingMessage,
+  socket: net.Socket,
+  head: any
+) => boolean;
 
 export type OnOpenCallback = (proxySocket: net.Socket) => void;
