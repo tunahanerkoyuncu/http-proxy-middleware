@@ -95,10 +95,12 @@ export class HttpProxyMiddleware {
   private handleUpgrade = async (req: Request, socket, head) => {
     if (this.shouldProxy(this.config.context, req)) {
       if (this.proxyOptions.onProxyReqWSInterceptor) {
-        const shouldContinue = await this.proxyOptions.onProxyReqWSInterceptor(req,socket,head);
+        const shouldContinue = await this.proxyOptions.onProxyReqWSInterceptor(req, socket, head);
         if (!shouldContinue) {
-            this.logger.info('[HPM] Proxy request to WebSocket interrupted by onProxyReqWSInterceptor');
-            return;
+          this.logger.info(
+            '[HPM] Proxy request to WebSocket interrupted by onProxyReqWSInterceptor'
+          );
+          return;
         }
       }
       const activeProxyOptions = await this.prepareProxyRequest(req);
